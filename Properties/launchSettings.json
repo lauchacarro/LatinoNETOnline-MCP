@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "ProtectedMcpServer": {
+    "LatinoNetOnline.MCP.Server": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

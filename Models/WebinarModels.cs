@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace ProtectedMcpServer.Models;
+namespace LatinoNetOnline.MCP.Server.Models;
 
 // Modelo base para respuestas de API que siguen el patrón result
 public class ApiResponse<T>

@@ -1,13 +1,13 @@
 using ModelContextProtocol;
 using ModelContextProtocol.Server;
 
-using ProtectedMcpServer.Models;
+using LatinoNetOnline.MCP.Server.Models;
 
 using System.ComponentModel;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
-namespace ProtectedMcpServer.Tools;
+namespace LatinoNetOnline.MCP.Server.Tools;
 
 [McpServerToolType]
 public sealed class WebinarTools

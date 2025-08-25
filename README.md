@@ -1,4 +1,4 @@
-# Protected MCP Server - Webinar Tools
+# LatinoNet Online MCP Server - Webinar Tools
 
 Un servidor MCP (Model Context Protocol) protegido con autenticación JWT que proporciona herramientas para obtener información de webinars y buscar speakers desde la API de LatinoNet.
 
@@ -32,7 +32,7 @@ Un servidor MCP (Model Context Protocol) protegido con autenticación JWT que pr
 2. **Configuración**
    ```bash
    git clone <repository-url>
-   cd ProtectedMcpServer
+   cd LatinoNetOnline.MCP.Server
    dotnet restore
    dotnet run
    ```
@@ -98,10 +98,12 @@ curl -X GET \
 ## 📁 Estructura del Proyecto
 
 ```
-ProtectedMcpServer/
+LatinoNetOnline.MCP.Server/
 ├── Program.cs                 # Configuración principal y startup
 ├── Tools/
 │   └── WebinarTools.cs       # Herramientas de webinars 
+├── Models/
+│   └── WebinarModels.cs      # Modelos para deserialización
 ├── appsettings.json          # Configuración desarrollo
 ├── appsettings.Production.json # Configuración producción
 ├── Dockerfile                # Imagen Docker

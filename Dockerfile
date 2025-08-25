@@ -9,12 +9,12 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 # Copiar csproj y restaurar dependencias
-COPY ProtectedMcpServer.csproj .
-RUN dotnet restore "ProtectedMcpServer.csproj"
+COPY LatinoNetOnline.MCP.Server.csproj .
+RUN dotnet restore "LatinoNetOnline.MCP.Server.csproj"
 
 # Copiar el resto del código y compilar
 COPY . .
-RUN dotnet publish "ProtectedMcpServer.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "LatinoNetOnline.MCP.Server.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Imagen final
 FROM base AS final
@@ -25,4 +25,4 @@ COPY --from=build /app/publish .
 ENV PORT=8080
 ENV ASPNETCORE_URLS=http://+:8080
 
-ENTRYPOINT ["dotnet", "ProtectedMcpServer.dll"]
+ENTRYPOINT ["dotnet", "LatinoNetOnline.MCP.Server.dll"]

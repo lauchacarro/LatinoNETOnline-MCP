@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using ModelContextProtocol.AspNetCore.Authentication;
 
 
-using ProtectedMcpServer.Tools;
+using LatinoNetOnline.MCP.Server.Tools;
 
 using System.Net.Http.Headers;
 
