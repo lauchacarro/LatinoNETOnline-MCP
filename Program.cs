@@ -121,7 +121,7 @@ app.UseAuthorization();
 app.MapMcp().RequireAuthorization();
 
 // Add health check endpoint for cloud deployment
-app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }));
+app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow })).AllowAnonymous();
 
 Console.WriteLine($"Starting MCP server with authorization at {serverUrl}");
 Console.WriteLine($"Using Identity Server (OpenID Connect) at {oAuthServerUrl}");
