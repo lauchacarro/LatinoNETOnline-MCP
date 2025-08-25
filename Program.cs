@@ -93,8 +93,7 @@ var webinarConfig = builder.Configuration.GetSection("ExternalApis:WebinarApi");
 builder.Services.AddHttpClient("WebinarApi", client =>
 {
     client.BaseAddress = new Uri(webinarConfig["BaseUrl"] ?? "https://api.latinonet.online");
-    //client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(
-      //  webinarConfig["UserAgent"] ?? "webinar-tool", "1.0"));
+
     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
     
     if (int.TryParse(webinarConfig["TimeoutSeconds"], out var webinarTimeout))
