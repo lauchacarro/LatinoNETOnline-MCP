@@ -27,7 +27,6 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
-    // Configure to validate tokens from our in-memory OAuth server
     options.Authority = oAuthServerUrl;
     options.TokenValidationParameters = new TokenValidationParameters
     {
