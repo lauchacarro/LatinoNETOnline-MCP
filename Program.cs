@@ -44,9 +44,8 @@ builder.Services.AddAuthentication(options =>
     {
         OnTokenValidated = context =>
         {
-            var name = context.Principal?.Identity?.Name ?? "unknown";
-            var email = context.Principal?.FindFirstValue("preferred_username") ?? "unknown";
-            Console.WriteLine($"Token validated for: {name} ({email})");
+ 
+            Console.WriteLine($"Token validated!");
             return Task.CompletedTask;
         },
         OnAuthenticationFailed = context =>
