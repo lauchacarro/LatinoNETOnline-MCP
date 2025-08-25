@@ -68,7 +68,6 @@ builder.Services.AddAuthentication(options =>
     {
         ResourceName = "Latino .Net Online MCP",
         Resource = new Uri(serverUrl),
-        ResourceDocumentation = new Uri("https://docs.example.com/api/weather"),
         AuthorizationServers = { new Uri(oAuthServerUrl) },
         ScopesSupported = ["latinonetonline_api", "openid", "profile"],
     };
