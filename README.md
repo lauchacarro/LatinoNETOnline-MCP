@@ -20,16 +20,6 @@ Un servidor MCP (Model Context Protocol) protegido con autenticación JWT que pr
    - Requiere autenticación JWT
    - Endpoint: `GET /api/v1/webinars-module/Proposals`
 
-2. **SearchSpeakers**
-   - Busca speakers en la base de datos de LatinoNet
-   - Parámetros: `search` (término de búsqueda), `take` (máximo 50 resultados)
-   - Requiere autenticación JWT
-   - Endpoint: `GET /api/v1/webinars-module/Speakers/Search`
-
-### WeatherTools (Ejemplo)
-
-1. **GetAlerts** - Obtiene alertas meteorológicas por estado (US)
-2. **GetForecast** - Obtiene pronóstico por coordenadas geográficas
 
 ## 🔧 Configuración
 
@@ -71,11 +61,6 @@ Un servidor MCP (Model Context Protocol) protegido con autenticación JWT que pr
    docker build -t protected-mcp-server .
    ```
 
-2. **Ejecutar con Docker Compose**
-   ```bash
-   docker-compose up -d
-   ```
-
 ### ☁️ Deploy en la Nube
 
 #### Azure App Service
@@ -86,10 +71,6 @@ Un servidor MCP (Model Context Protocol) protegido con autenticación JWT que pr
    ServerConfiguration__BaseUrl=https://your-app.azurewebsites.net/
    ServerConfiguration__OAuthServerUrl=https://ids.latinonet.online
    ```
-
-2. **Deploy con GitHub Actions**
-   - Configurar secretos: `AZURE_WEBAPP_PUBLISH_PROFILE_PRODUCTION`
-   - Push a `main` branch activa el deployment
 
 #### AWS/GCP
 
@@ -112,10 +93,6 @@ curl -X GET \
   'http://localhost:7071/mcp/tools/GetUpcomingWebinars' \
   -H 'Authorization: Bearer <your-jwt-token>'
 
-# Buscar speakers
-curl -X GET \
-  'http://localhost:7071/mcp/tools/SearchSpeakers?search=jorge&take=5' \
-  -H 'Authorization: Bearer <your-jwt-token>'
 ```
 
 ## 📁 Estructura del Proyecto
@@ -124,8 +101,7 @@ curl -X GET \
 ProtectedMcpServer/
 ├── Program.cs                 # Configuración principal y startup
 ├── Tools/
-│   ├── WeatherTools.cs       # Herramientas del clima (ejemplo)
-│   └── WebinarTools.cs       # Herramientas de webinars (principal)
+│   └── WebinarTools.cs       # Herramientas de webinars 
 ├── appsettings.json          # Configuración desarrollo
 ├── appsettings.Production.json # Configuración producción
 ├── Dockerfile                # Imagen Docker
@@ -142,8 +118,6 @@ ProtectedMcpServer/
 ## 🧪 Testing
 
 ```bash
-# Ejecutar tests
-dotnet test
 
 # Verificar health check
 curl http://localhost:7071/health
@@ -156,15 +130,3 @@ El servidor incluye:
 - Logging configurable por ambiente
 - Timeouts configurables para APIs externas
 - Manejo de errores escalable
-
-## 🤝 Contribución
-
-1. Fork el proyecto
-2. Crea una feature branch (`git checkout -b feature/nueva-feature`)
-3. Commit tus cambios (`git commit -am 'Add nueva feature'`)
-4. Push a la branch (`git push origin feature/nueva-feature`)
-5. Abre un Pull Request
-
-## 📄 Licencia
-
-Este proyecto está bajo la licencia MIT. Ver `LICENSE` para más detalles.

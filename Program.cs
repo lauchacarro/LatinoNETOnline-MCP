@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.IdentityModel.Tokens;
+
 using ModelContextProtocol.AspNetCore.Authentication;
 
 
 using ProtectedMcpServer.Tools;
+
 using System.Net.Http.Headers;
-using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,7 +45,7 @@ builder.Services.AddAuthentication(options =>
     {
         OnTokenValidated = context =>
         {
- 
+
             Console.WriteLine($"Token validated!");
             return Task.CompletedTask;
         },
@@ -95,7 +96,7 @@ builder.Services.AddHttpClient("WebinarApi", client =>
     client.BaseAddress = new Uri(webinarConfig["BaseUrl"] ?? "https://api.latinonet.online");
 
     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-    
+
     if (int.TryParse(webinarConfig["TimeoutSeconds"], out var webinarTimeout))
     {
         client.Timeout = TimeSpan.FromSeconds(webinarTimeout);

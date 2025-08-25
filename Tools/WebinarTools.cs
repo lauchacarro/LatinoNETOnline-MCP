@@ -1,9 +1,10 @@
 using ModelContextProtocol;
 using ModelContextProtocol.Server;
+
 using ProtectedMcpServer.Models;
+
 using System.ComponentModel;
 using System.Net.Http.Headers;
-using System.Security.Claims;
 using System.Text.Json;
 
 namespace ProtectedMcpServer.Tools;
@@ -24,7 +25,7 @@ public sealed class WebinarTools
     {
         var context = _httpContextAccessor.HttpContext;
         var authorizationHeader = context?.Request.Headers["Authorization"].FirstOrDefault();
-        
+
         if (string.IsNullOrEmpty(authorizationHeader))
             return null;
 
@@ -52,7 +53,7 @@ public sealed class WebinarTools
         try
         {
             var response = await client.GetFromJsonAsync<ProposalsResponse>("/api/v1/webinars-module/Proposals");
-            
+
             if (response == null)
             {
                 return "No webinar data available.";
@@ -74,7 +75,7 @@ public sealed class WebinarTools
                 var speakers = item.Speakers;
 
                 var speakersInfo = speakers?.Any() == true
-                    ? string.Join(", ", speakers.Select(s => 
+                    ? string.Join(", ", speakers.Select(s =>
                         $"{s.Name} {s.LastName} {(!string.IsNullOrEmpty(s.Email) ? $" ({s.Email})" : "")}{(!string.IsNullOrEmpty(s.Twitter) ? $" - @{s.Twitter}" : "")}"))
                     : "Speaker not specified";
 
