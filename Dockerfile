@@ -1,35 +1,29 @@
-# Use the official .NET 9 runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+# Consulte https://aka.ms/customizecontainer para aprender a personalizar su contenedor de depuración y cómo Visual Studio usa este Dockerfile para compilar sus imágenes para una depuración más rápida.
+
+# Esta fase se usa cuando se ejecuta desde VS en modo rápido (valor predeterminado para la configuración de depuración)
+FROM mcr.microsoft.com/dotnet/aspnet:9.0-alpine AS base
+USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
-EXPOSE 8081
 
-# Use the official .NET 9 SDK image to build the app
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+
+# Esta fase se usa para compilar el proyecto de servicio
+FROM mcr.microsoft.com/dotnet/sdk:9.0-alpine AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-
-# Copy project file and restore dependencies
 COPY ["ProtectedMcpServer.csproj", "."]
 RUN dotnet restore "./ProtectedMcpServer.csproj"
-
-# Copy all source files and build the application
 COPY . .
 WORKDIR "/src/."
 RUN dotnet build "./ProtectedMcpServer.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-# Publish the application
+# Esta fase se usa para publicar el proyecto de servicio que se copiará en la fase final.
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./ProtectedMcpServer.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-# Create the final runtime image
+# Esta fase se usa en producción o cuando se ejecuta desde VS en modo normal (valor predeterminado cuando no se usa la configuración de depuración)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-
-# Create a non-root user for security
-RUN adduser --disabled-password --gecos '' appuser && chown -R appuser /app
-USER appuser
-
 ENTRYPOINT ["dotnet", "ProtectedMcpServer.dll"]
